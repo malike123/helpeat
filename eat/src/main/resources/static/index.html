@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="resource/jquery.min.js"></script>
+<script src="resource/jquery-3.1.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    手机号码<input type="text" id="phoneNumber">
+    <br>
+            <button id="getCode">发送验证码</button>
+    <br>
+    手机验证码<input type="text" id="text">
+    <br>
+    图形验证码<input type="text" id="imageCode">
+    <br>
+    <img src="">
+    确认图形验证码<button type="sumcoede" id="sumcode"></button>
+    <button id="sum">登陆</button>
+
+</body>
+<script>
+    $(function(){
+        $("#getCode").click(function () {
+            var phone = $("#phoneNumber").val();
+            $.ajax({
+                url: "/getCode",
+                data: {phoneNumber: phone},
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    //获取图形验证码
+                    if(data.name=="NEED_CAPTCHA"){
+                        $.ajax({
+                            url: "/getImageCode",
+                            data: {phoneNumber: phone},
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data) {
+
+                            }
+                        })
+                        //发送验证码
+                    }else if(data.validate_token!="" &&data.validate_token!=null ){
+                        $.ajax({
+                            url: "/getImageCode",
+                            data: {phoneNumber: phone},
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data) {
+
+                            }
+                        })
+                    }
+                }
+            })
+        })
+    })
+
+</script>
+</html>
