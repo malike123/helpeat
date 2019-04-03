@@ -12,17 +12,27 @@
     <br>
             <button id="getCode">发送验证码</button>
     <br>
-    手机验证码<input type="text" id="text">
+    手机验证码<input type="text" id="validate_code">
     <br>
-    图形验证码<input type="text" id="imageCode">
+    图形验证码<input type="text" id="captcha_value">
     <br>
-    <img src="">
-    确认图形验证码<button type="sumcoede" id="sumcode"></button>
-    <button id="sum">登陆</button>
+    <img src="" id="imgValidateCode">
+    <button type="sumcoede" id="sumcode">确认图形验证码</button>
+    <button type="sumcoede" id="againImage">重新获取图形验证码</button>
+    <br>
+    <br>
+    <br>
+    <button id="login">登陆</button>
+
+
 
 </body>
 <script>
     $(function(){
+        //登陆token
+        var token = "";
+        //图像验证码hash
+        var captcha_hash ="";
         $("#getCode").click(function () {
             var phone = $("#phoneNumber").val();
             $.ajax({
@@ -32,31 +42,83 @@
                 dataType: "json",
                 success: function(data) {
                     //获取图形验证码
-                    if(data.name=="NEED_CAPTCHA"){
+                    if(data.data.name=="NEED_CAPTCHA"){
                         $.ajax({
                             url: "/getImageCode",
                             data: {phoneNumber: phone},
                             type: "GET",
                             dataType: "json",
                             success: function(data) {
-
+                                if(data.status){
+                                    $('#imgValidateCode').attr("src", data.data.captcha_image);
+                                    captcha_hash = data.data.captcha_hash;
+                                }
                             }
                         })
-                        //发送验证码
-                    }else if(data.validate_token!="" &&data.validate_token!=null ){
-                        $.ajax({
-                            url: "/getImageCode",
-                            data: {phoneNumber: phone},
-                            type: "GET",
-                            dataType: "json",
-                            success: function(data) {
+                        //   发送短信   填写验证码
+                    }else if(data.data.validate_token!="" &&data.data.validate_token!=null ){
+                        token = data.data.validate_token;
 
-                            }
-                        })
                     }
                 }
             })
         })
+        
+        //发送图像 验证码
+        $("#sumcode").click(function () {
+            var phone = $("#phoneNumber").val();
+            var captcha_value = $("#captcha_value").val();
+            $.ajax({
+                url: "/getCode",
+                data: {phoneNumber: phone,captcha_hash:captcha_hash,captcha_value:captcha_value},
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    if(data.data.validate_token!=null){
+                        token = data.data.validate_token;
+                    }
+                }
+            })
+        })
+
+
+        //重新获取验证码
+        $("#againImage").click(function () {
+            var phone = $("#phoneNumber").val();
+            $.ajax({
+                url: "/getImageCode",
+                data: {phoneNumber: phone},
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    if(data.status){
+                        $('#imgValidateCode').attr("src", data.data.captcha_image);
+                        captcha_hash = data.data.captcha_hash;
+                    }
+                }
+            })
+        })
+
+
+        //登陆
+        $("#login").click(function () {
+            var code = $("#validate_code").val();
+            var phone = $("#phoneNumber").val();
+            $.ajax({
+                url: "/login",
+                data: {phoneNumber: phone,validate_token:token,validate_code:code},
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    if(data.status){
+                        window.location="/menu"
+                    }
+                }
+            })
+        })
+
+
+
     })
 
 </script>

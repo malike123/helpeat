@@ -8,7 +8,21 @@ public class ElmResponse {
     public String captcha_hash; //图形验证码
     public String captcha_image; //base64图片
 
+    public String getCaptcha_hash() {
+        return captcha_hash;
+    }
 
+    public void setCaptcha_hash(String captcha_hash) {
+        this.captcha_hash = captcha_hash;
+    }
+
+    public String getCaptcha_image() {
+        return captcha_image;
+    }
+
+    public void setCaptcha_image(String captcha_image) {
+        this.captcha_image = captcha_image;
+    }
 
     public String getValidate_token() {
         return validate_token;
