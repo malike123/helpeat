@@ -1,8 +1,8 @@
 package com.malike.demo.controller;
 
 import com.malike.demo.model.Result;
+import com.malike.demo.utils.HttpClientUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 菜单
@@ -10,5 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class MenuController {
 
+    private static HttpClientUtils httpClientUtils = HttpClientUtils.getHttpClient();
 
+    public Result getMenu(){
+        Result result = new Result();
+        return  result;
+    }
 }

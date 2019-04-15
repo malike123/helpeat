@@ -1,5 +1,6 @@
 package com.malike.demo.utils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
@@ -29,15 +30,16 @@ public class RequestUtils {
             HttpPost httpPost = new HttpPost(String.valueOf(url1));
             if (entityParam != null) {
                 httpPost.setEntity(entityParam);
+
             }
             CloseableHttpResponse closeableHttpResponse = httpClients.execute(httpPost);
             return closeableHttpResponse;
-        } else {
+        } else if(method.equals("get")){
             HttpGet httpGet = new HttpGet(String.valueOf(url1));
             CloseableHttpResponse closeableHttpResponse = httpClients.execute(httpGet);
             return closeableHttpResponse;
         }
-
+        return null;
     }
 
     //设置参数
@@ -56,7 +58,12 @@ public class RequestUtils {
     public static <T> T toObject(String res, Class<T> clazz) {
         T object = (T) JSONObject.parseObject(res, clazz);
         return object;
+    }
 
+    //转换集合
+    public  static <T> List<T> toArrayList(String res , Class<T> clazz){
+        List<T> list = JSONArray.parseArray(res , clazz);
+        return list;
     }
 
 }

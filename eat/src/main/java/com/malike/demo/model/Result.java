@@ -7,6 +7,11 @@ public class Result<T> {
     private T data;
     private int statusCode;
 
+    public Result(String message,boolean status,T data){
+
+    }
+    public Result(){}
+
     public String getMessage() {
         return message;
     }

@@ -1,4 +1,4 @@
-package com.malike.demo.model;
+package com.malike.demo.model.category;
 
 import java.util.List;
 

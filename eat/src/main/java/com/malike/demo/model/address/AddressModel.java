@@ -1,6 +1,8 @@
-package com.malike.demo.model;
+package com.malike.demo.model.address;
 
-public class AddressModel {
+import java.io.Serializable;
+
+public class AddressModel implements Serializable {
 
     private String Address;
     private String city;

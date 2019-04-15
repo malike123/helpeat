@@ -1,33 +1,26 @@
 package com.malike.demo.controller;
 
 
-import com.malike.demo.model.ElmResponse;
+import com.malike.demo.model.response.ElmResponse;
 import com.malike.demo.model.Result;
-import com.malike.demo.model.login.Url;
+import com.malike.demo.utils.Url;
 import com.malike.demo.utils.CookieUtils;
 import com.malike.demo.utils.HttpClientUtils;
 import com.malike.demo.utils.RequestUtils;
 import org.apache.http.Header;
-import org.apache.http.HttpRequest;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
-import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Controller

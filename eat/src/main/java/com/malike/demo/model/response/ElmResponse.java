@@ -1,4 +1,4 @@
-package com.malike.demo.model;
+package com.malike.demo.model.response;
 
 public class ElmResponse {
     public String message;

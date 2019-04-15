@@ -1,0 +1,11 @@
+server:
+  port: 8899
+
+
+
+xxl:
+  sso:
+    redis:
+      address: redis://xl-sso:123456@127.0.0.1:6379
+      expire:
+        minite: 1440
